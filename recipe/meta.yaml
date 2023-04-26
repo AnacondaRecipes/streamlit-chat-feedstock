@@ -12,7 +12,8 @@ source:
 build:
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
-  skip: true  # [py<38]
+  # streamlit >=0.63 not available on s390x
+  skip: true  # [py<38 or s390x]
 
 requirements:
   host:
