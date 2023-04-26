@@ -1,0 +1,48 @@
+{% set name = "streamlit-chat" %}
+{% set version = "0.0.2.2" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/streamlit-chat-{{ version }}.tar.gz
+  sha256: 539a526e680628b09ab5b06547fb1dd03aa846798c027002bb1e971e9fefd303
+
+build:
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 0
+  skip: true  # [py<38]
+
+requirements:
+  host:
+    - python
+    - pip
+    - setuptools
+    - wheel
+  run:
+    - python
+    - streamlit >=0.63
+
+test:
+  imports:
+    - streamlit_chat
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  home: https://github.com/AI-Yash/st-chat
+  dev_url: https://github.com/AI-Yash/st-chat
+  doc_url: https://github.com/AI-Yash/st-chat/blob/main/README.md
+  summary: A streamlit component, to make chatbots
+  description: |
+    Streamlit Component, for a Chat-bot UI
+  license: MIT
+  license_file: LICENSE
+  license_family: MIT
+
+extra:
+  recipe-maintainers:
+    - ELundby45
