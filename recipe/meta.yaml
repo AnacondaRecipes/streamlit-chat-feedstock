@@ -6,14 +6,13 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/streamlit-chat-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: e5911c8e3d5bbdd444782a0eb46a5f0cf24247124eb165bcc2e759540767ac3c
 
 build:
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
-  # streamlit >=0.63 not available on s390x
-  skip: true  # [py<36 or s390x]
+  skip: true  # [py<36]
 
 requirements:
   host:
@@ -28,10 +27,11 @@ requirements:
 test:
   imports:
     - streamlit_chat
-  commands:
-    - pip check
   requires:
     - pip
+  commands:
+    - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
 
 about:
   home: https://github.com/AI-Yash/st-chat
