@@ -1,19 +1,19 @@
 {% set name = "streamlit-chat" %}
-{% set version = "0.0.2.2" %}
+{% set version = "0.1.1" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/streamlit-chat-{{ version }}.tar.gz
-  sha256: 539a526e680628b09ab5b06547fb1dd03aa846798c027002bb1e971e9fefd303
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/streamlit-chat-{{ version }}.tar.gz
+  sha256: e5911c8e3d5bbdd444782a0eb46a5f0cf24247124eb165bcc2e759540767ac3c
 
 build:
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
   # streamlit >=0.63 not available on s390x
-  skip: true  # [py<38 or s390x]
+  skip: true  # [py<36 or s390x]
 
 requirements:
   host:
